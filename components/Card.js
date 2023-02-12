@@ -5,18 +5,34 @@ import Colors from '../constants/colors';
 import Recipe from '../screens/Recipe';
 
 export default function Card (props){
-    return (
+    // if(props.infoGiven){
+    //     return(
+    //         <TouchableOpacity style={{...styles.card}} onPress = { () => {
+    //             props.navigation.navigate("Recipe", {info: props.info});
+    //         }}>
+    //              <Image style={styles.cardImg} source={{uri: props.info.results[0].thumbnail_url}}/>
+    //             <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.cardTit}>{props.infoGiven ? props.info.results[0].name : "Title of Recipe"}</Text>
+    //         </TouchableOpacity>
+    //     );
+    // }
+    try {
+        return (
             <TouchableOpacity style={{...styles.card}} onPress = { () => {
                 props.navigation.navigate("Recipe", {info: props.info});
             }}>
-                {console.log(props.info.results[0].name)}
-                <Image style={styles.cardImg} source={{uri: props.info.results[0].thumbnail_url}}/>
+                {props.infoGiven ? <Image style={styles.cardImg} source={{uri: props.info.results[0].thumbnail_url}}/> : <Image style={styles.cardImg} source={require('../images/ChickenBiryani.jpg')}/>}
+                {/* <Image style={styles.cardImg} source={{uri: props.info.results[0].thumbnail_url}}/> */}
                 <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.cardTit}>{props.infoGiven ? props.info.results[0].name : "Title of Recipe"}</Text>
             </TouchableOpacity>
-
-
-
     );
+    } catch (error) {
+        <TouchableOpacity style={{...styles.card}} onPress = { () => {
+            props.navigation.navigate("Recipe");
+        }}>
+             <Image style={styles.cardImg} source={require('../images/ChickenBiryani.jpg')}/>
+            <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.cardTit}>Title of Recipe</Text>
+        </TouchableOpacity>
+    }
 };
 
 const styles = StyleSheet.create({
